@@ -14,6 +14,8 @@ Swagger UI - http://localhost
 
 Check screenshot - ./screenshot.jpg
 
+![Wardle API](https://github.com/sibendu/k8s/blob/main/kube-sample-apiserver/screenshot.jpg)
+
 ### To Do:
 Java implementation
 
