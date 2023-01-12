@@ -7,3 +7,11 @@ This repo contains various Kubernetes related works/pocs
 A sample go implementation of API Aggregation layer, forked from Kubernetes repo: 
 https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/
    
+## custom-controller
+ 
+A custom controller, watching custom resource CRUD
+
+
+ 
+
+
