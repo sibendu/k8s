@@ -1,0 +1,52 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-hello-nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: $1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/ingress.class: "nginx" 
+    #nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+    #nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /hello/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: hello
+            port:
+              number: 8080
+      - path: /nginx/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx
+            port:
+              number: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: oauth2-proxy
+  namespace: kube-system
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hello.org
+    http:
+      paths:
+      - path: /oauth2
+        pathType: Prefix
+        backend:
+          service:
+            name: oauth2-proxy
+            port:
+              number: 4180
+  tls:
+  - hosts:
+    - k8s
+    secretName: k8s-secret
