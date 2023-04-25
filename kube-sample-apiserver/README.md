@@ -7,12 +7,12 @@ Followed sample-apiserver\docs\minikube-walkthrough.md
 
 We can also check the API is deployed using OpenAPI v3 & Swagger; use below steps:
 ----
-kubectl proxy 
-curl localhost:8001/openapi/v2 > k8sapi.json
-docker run --rm -p 80:8080 -e SWAGGER_JSON=/k8sapi.json -v $(pwd)/k8sapi.json:/k8sapi.json swaggerapi/swagger-ui
-Swagger UI - http://localhost
+kubectl proxy <br/>
+curl localhost:8001/openapi/v2 > k8sapi.json <br/>
+docker run --rm -p 80:8080 -e SWAGGER_JSON=/k8sapi.json -v $(pwd)/k8sapi.json:/k8sapi.json swaggerapi/swagger-ui <br/>
+Swagger UI - http://localhost <br/>
 
-Check screenshot - ./screenshot.jpg
+Check screenshot - ./screenshot.jpg <br/>
 
 ![Wardle API](https://github.com/sibendu/k8s/blob/main/kube-sample-apiserver/screenshot.jpg)
 
