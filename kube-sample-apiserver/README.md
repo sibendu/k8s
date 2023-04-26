@@ -5,7 +5,25 @@
 Go 1.17+ was needed
 Followed sample-apiserver\docs\minikube-walkthrough.md    
 
-We can also check the API is deployed using OpenAPI v3 & Swagger; use below steps:
+For running on Microk8s on Ubuntu WSL2:
+
+1> Build:  $CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o artifacts/simple-image/kube-sample-apiserver   (from cd kube-sample-apiserver )
+
+=> Should create binary ./artifacts/simple-image/kube-sample-apiserver
+
+2> Build container image: 
+
+docker build -t sibendu/kube-sample-apiserver ./artifacts/simple-image
+
+docker push sibendu/kube-sample-apiserver
+
+3> Deploy: kubectl apply -f artifacts/example   (Sometimes gives problem in deployment.yaml saying ns no created, run it again) 
+
+4> Deploy a resource: kubectl apply -f   artifacts/flunders/01-flunder.yaml
+
+5> Check it is created: kubectl get flunders
+
+6> We can also check the API is deployed using OpenAPI v3 & Swagger; use below steps:
 ----
 kubectl proxy <br/>
 curl localhost:8001/openapi/v2 > k8sapi.json <br/>
