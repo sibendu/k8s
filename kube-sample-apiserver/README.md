@@ -24,7 +24,7 @@ docker push sibendu/kube-sample-apiserver
 5> Check it is created: kubectl get flunders
 
 6> We can also check the API is deployed using OpenAPI v3 & Swagger; use below steps:
-----
+
 kubectl proxy <br/>
 curl localhost:8001/openapi/v2 > k8sapi.json <br/>
 docker run --rm -p 80:8080 -e SWAGGER_JSON=/k8sapi.json -v $(pwd)/k8sapi.json:/k8sapi.json swaggerapi/swagger-ui <br/>
