@@ -3,4 +3,4 @@ kind: samplecrd
 metadata:
   name: sample-cr-1
 spec:
-  my-own-property: "This is a sample resurce # 1"
+  my-own-property: "This is a sample resurce # 1 - SD"

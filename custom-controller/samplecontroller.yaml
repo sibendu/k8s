@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: samplecontroller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: samplecontroller
+  template:
+    metadata:
+      labels:
+        app: samplecontroller
+    spec:
+      containers:
+        - name: samplecontroller
+          image: sibendu/samplecontroller
+          ports:
+            - containerPort: 8080
+          env:
+            - name: TEST
+              value: test_val
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: samplecontroller
+spec:
+  type: ClusterIP
+  selector:
+    app: samplecontroller
+  ports:
+    - port: 8080
+      targetPort: 8080
+      #nodePort: 30090     
