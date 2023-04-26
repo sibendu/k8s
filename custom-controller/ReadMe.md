@@ -1,13 +1,20 @@
 # Creating Kubernetes Custom Resource Definition and Controller
 
 Build the Sample Controller and Run. It can be run locally, or deployed to K8S
+
 	gradle clean build
+
 Then,
+
 	java -jar build/libs/samplecontroller-1.0.jar
+
 or, 
+
 	docker build -t sibendu/samplecontroller .
+
 	kubectl apply -f samplecontroller.yaml
 
+Now, create the CRD and CR:
 
 kubectl apply -f crd.yaml
 
