@@ -1,0 +1,60 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    derrick.service.type: nodeport
+    derrick.version: 0.0.14
+  labels:
+    derrick.service: lucas
+  name: lucas
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    derrick.service: lucas
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    derrick.version: 0.0.14
+  labels:
+    derrick.service: lucas
+  name: lucas
+spec:
+  selector:
+    matchLabels:
+      derrick.service: lucas
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        derrick.service: lucas
+    spec:
+      containers:
+      - image: registry.cn-hangzhou.aliyuncs.com/ringtail/lucas:0.0.2
+        name: web
+        ports:
+        - containerPort: 8080
+        env:
+        - name: CA_FILE
+          value: /certs/ca.crt
+        - name: CERT_FILE
+          value: /certs/server.crt
+        - name: KEY_FILE
+          value: /certs/server.key
+        - name: ENDPOINTS
+          value: "https://127.0.0.1:12379"
+        volumeMounts:
+        - mountPath: /certs
+          name: etcd-certs-0
+          readOnly: true
+      volumes:
+      - hostPath:
+          path: /var/snap/microk8s/current/certs
+          type: DirectoryOrCreate
+        name: etcd-certs-0

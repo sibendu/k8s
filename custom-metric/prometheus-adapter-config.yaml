@@ -1,0 +1,10 @@
+rules:
+- seriesQuery: '{__name__="ping_request_count",job="sample_go_server"}'
+  resources:
+    overrides:
+      namespace: {resource: "namespace"}
+      pod: {resource: "pod"}
+  name:
+    matches: ^(.*)
+    as: "ping_request_count_sd"
+  metricsQuery: 100 * ping_request_count

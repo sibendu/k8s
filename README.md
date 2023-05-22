@@ -14,4 +14,6 @@ A custom controller, watching custom resource CRUD
 
  
 
+kubectl apply -f https://k8s.io/examples/application/shell-demo.yaml
+
 
